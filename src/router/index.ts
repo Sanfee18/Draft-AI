@@ -8,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
+    path: "/img2img",
+    name: "img2img",
+    component: () => import("../components/Img2ImgComponent.vue"),
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting

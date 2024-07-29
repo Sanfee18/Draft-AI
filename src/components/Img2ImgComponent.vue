@@ -1,75 +1,35 @@
 <template>
-  <div
-    class="flex flex-row items-center justify-center gap-4 m-6 bg-white p-4 border-slate-950 rounded-xl"
-  >
-    <nav
-      class="flex flex-col items-center gap-1 bg-white h-fit p-4 rounded-lg shadow-md border"
-    >
-      <button
-        class="p-2 hover:bg-gray-100 rounded-lg"
-        @click="toggleEraseMode(false)"
-      >
-        <PencilIcon class="w-8" />
-      </button>
-      <button
-        class="p-2 hover:bg-gray-100 rounded-lg"
-        @click="toggleEraseMode()"
-      >
-        <EraseIcon class="w-8" />
-      </button>
-      <button class="p-2 hover:bg-gray-100 rounded-lg" @click="toggleUndo">
-        <UndoIcon class="w-8" />
-      </button>
-      <button class="p-2 hover:bg-gray-100 rounded-lg" @click="toggleRedo">
-        <UndoIcon class="w-8 transform -scale-x-100" />
-      </button>
-      <button class="p-2 hover:bg-gray-100 rounded-lg" @click="toggleEraseAll">
-        <TrashIcon class="w-8 transform -scale-x-100" />
-      </button>
-    </nav>
-    <canvas
-      class="rounded-lg shadow-md border cursor-crosshair"
-      ref="canvas"
-      @mousedown="startDrawing"
-      @mouseup="stopDrawing"
-      @mouseleave="stopDrawing"
-      @mousemove="draw"
-    ></canvas>
-    <form
-      class="flex flex-col gap-y-4 bg-white h-fit p-4 rounded-lg shadow-md border justify-center"
-    >
-      <input
-        class="border rounded-lg p-2 text-xs w-full"
-        type="text"
-        placeholder="type your idea"
-      />
-      <select
-        class="border rounded-lg p-2 text-xs w-full"
-        id="cars"
-        name="cars"
-      >
-        <option value="volvo">Cyberpunk</option>
-        <option value="saab">Saab</option>
-        <option value="fiat">Fiat</option>
-        <option value="audi">Audi</option>
-      </select>
-      <button
-        class="border rounded-lg p-2 bg-slate-800 text-white hover:bg-slate-700 text-lg w-full"
-      >
-        Generate! 🌟
-      </button>
-    </form>
+  <div class="flex items-center justify-center">
+    <div class="flex flex-row gap-6">
+      <canvas
+        class="rounded-lg shadow-md border cursor-crosshair"
+        ref="canvas"
+        @mousedown="startDrawing"
+        @mouseup="stopDrawing"
+        @mouseleave="stopDrawing"
+        @mousemove="draw"
+      ></canvas>
+      <div class="h-full flex flex-col gap-7">
+        <ButtonsController
+          class="w-fit self-start"
+          @toggleEraseMode="toggleEraseMode($event)"
+          @toggleUndo="toggleUndo"
+          @toggleRedo="toggleRedo"
+          @toggleEraseAll="toggleEraseAll"
+        />
+        <Img2ImgForm class="row-span-3" @generateImg="generateImg" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted } from "vue";
-import EraseIcon from "./icons/EraseIcon.vue";
-import PencilIcon from "./icons/PencilIcon.vue";
-import UndoIcon from "./icons/UndoIcon.vue";
-import TrashIcon from "./icons/TrashIcon.vue";
+import Img2ImgForm from "./Img2ImgForm.vue";
+import ButtonsController from "./ButtonsController.vue";
 
 const SCALE = 5;
+const IA_RESOLUTION = 1024;
 const HEIGHT = window.innerHeight * 0.9 * SCALE;
 const WIDTH = HEIGHT;
 const colorLine = ref("black");
@@ -99,8 +59,8 @@ onMounted(() => {
     state.ctx = canvas.value.getContext("2d");
     if (!state.ctx) return;
 
-    //state.ctx.fillStyle = "white"; // Fondo blanco
-    //state.ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    state.ctx.fillStyle = "white"; // Fondo blanco
+    state.ctx.fillRect(0, 0, WIDTH, HEIGHT);
     state.ctx.strokeStyle = colorLine.value; // Color del trazo
     state.ctx.lineWidth = widthLine.value; // Ancho del trazo
     state.ctx.lineJoin = "round"; // Suaviza las uniones
@@ -115,6 +75,29 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("keydown", handleKeyDown);
 });
+
+const generateImg = () => {
+  if (!canvas.value) return;
+  const canvasElement = canvas.value;
+
+  const tempCanvas = document.createElement("canvas");
+  const tempCtx = tempCanvas.getContext("2d");
+  tempCanvas.width = IA_RESOLUTION;
+  tempCanvas.height = IA_RESOLUTION;
+
+  // scale canvas to ia resolution
+  if (!tempCtx) return;
+  tempCtx.drawImage(canvasElement, 0, 0, tempCanvas.width, tempCanvas.height);
+
+  const dataURL = tempCanvas.toDataURL("image/png");
+
+  const link = document.createElement("a");
+  link.href = dataURL;
+  link.download = "canvas-image.png";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
 // Alternar entre modo de dibujo y borrado
 const toggleEraseMode = (ereaseMode = true) => {
@@ -208,6 +191,10 @@ const handleKeyDown = (event: KeyboardEvent) => {
   if ((event.ctrlKey || event.metaKey) && event.key === "z") {
     event.preventDefault();
     toggleUndo();
+  }
+  if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+    event.preventDefault();
+    generateImg();
   }
 };
 </script>

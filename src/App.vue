@@ -1,11 +1,10 @@
 <template>
-  <div class="flex flex-row">
+  <section class="flex flex-row h-screen">
     <SideBar />
-    <RouterView class="max-h-screen m-6 flex-1" />
-    <!--bg-slate-100/40 p-4 border-slate-950 rounded-xl -->
-  </div>
+    <RouterView class="my-4 mx-6 flex-1" />
+  </section>
 </template>
 <script setup lang="ts">
+import SideBar from "@/components/SideBar.vue";
 import { RouterView } from "vue-router";
-import SideBar from "./components/SideBar.vue";
 </script>

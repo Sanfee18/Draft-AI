@@ -25,8 +25,8 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted } from "vue";
-import Img2ImgForm from "./Img2ImgForm.vue";
-import ButtonsController from "./ButtonsController.vue";
+import Img2ImgForm from "@/components/Img2ImgForm.vue";
+import ButtonsController from "@/components/ButtonsController.vue";
 
 const SCALE = 5;
 const IA_RESOLUTION = 1024;

@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/img2img",
     name: "img2img",
-    component: () => import("../components/Img2ImgComponent.vue"),
+    component: () => import("@/components/Img2ImgComponent.vue"),
   },
   {
     path: "/about",

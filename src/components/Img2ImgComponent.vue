@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center">
     <div class="flex flex-row gap-6">
       <canvas
-        class="rounded-lg shadow-md border cursor-crosshair"
+        class="rounded-lg shadow-md border cursor-custom"
         ref="canvas"
         @mousedown="startDrawing"
         @mouseup="stopDrawing"

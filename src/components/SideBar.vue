@@ -6,35 +6,35 @@
       <li title="Home">
         <router-link
           to="/"
-          class="hover:bg-white p-3 rounded-lg cursor-pointer flex flex-col"
+          class="hover:bg-slate-50 p-3 rounded-lg cursor-pointer flex flex-col"
         >
           <span class="text-sm text-slate-600">Home</span>
-          <span class="text-base text-slate-950"
-            ><strong>Draft AI 👨🏼‍🎨</strong></span
+          <span class="text-base text-slate-800 font-semibold"
+            >Draft AI 👨🏼‍🎨</span
           >
         </router-link>
       </li>
-      <li><hr class="border-slate-950" /></li>
+      <li><hr class="border-slate-800" /></li>
       <!--COMPONENTS WITH AI-->
       <li title="Img2Img">
         <router-link
           to="/img2img"
-          class="hover:bg-white p-3 rounded-lg cursor-pointer flex flex-col"
+          class="hover:bg-slate-50 p-3 rounded-lg cursor-pointer flex flex-col"
         >
-          <span class="text-base text-slate-950">Img2Img</span>
+          <span class="text-base text-slate-800">Img2Img</span>
           <span class="text-sm text-slate-600">Draw with AI</span>
         </router-link>
       </li>
     </ul>
     <footer class="flex flex-col">
-      <hr class="border-slate-950" />
+      <hr class="border-slate-800" />
       <!--INFO PAGES-->
       <router-link
         class="hover:bg-white p-1 rounded-lg cursor-pointer flex flex-col"
         title="Road map"
         to="/road-map"
       >
-        <span class="text-base text-slate-950">Road map</span>
+        <span class="text-base text-slate-800">Road map</span>
         <span class="text-sm text-slate-600">Little road map</span>
       </router-link>
       <router-link
@@ -42,7 +42,7 @@
         title="About us"
         to="/about"
       >
-        <span class="text-base text-slate-950">About</span>
+        <span class="text-base text-slate-800">About</span>
         <span class="text-sm text-slate-600">Info about us</span>
       </router-link>
 
@@ -70,5 +70,6 @@ const GITHUB_LINK = "https://github.com/Sanfee18/Draft-AI";
 <style scoped>
 .router-link-exact-active {
   @apply bg-gray-100;
+  /*@apply font-bold;*/
 }
 </style>

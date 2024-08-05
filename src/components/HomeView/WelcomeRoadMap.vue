@@ -1,6 +1,6 @@
 <template>
   <section
-    class="z-50 flex flex-col justify-center items-center gap-10 py-28 snap-always snap-start"
+    class="flex flex-col justify-center items-center gap-10 py-32 snap-always snap-start"
   >
     <h4 class="text-4xl">Nuestro roadmap 📍</h4>
     <h1 class="text-4xl text-center font-normal">

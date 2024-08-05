@@ -10,7 +10,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/img2img",
     name: "img2img",
-    component: () => import("@/components/Img2ImgComponent.vue"),
+    components: {
+      default: () => import("@/components/Img2ImgComponent.vue"),
+      SideBar: () => import("@/components/SideBar.vue"),
+    },
   },
   {
     path: "/about",
@@ -18,8 +21,10 @@ const routes: Array<RouteRecordRaw> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    components: {
+      default: () => import("../views/AboutView.vue"),
+      SideBar: () => import("@/components/SideBar.vue"),
+    },
   },
 ];
 

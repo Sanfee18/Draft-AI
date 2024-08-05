@@ -1,5 +1,6 @@
 <template>
   <nav
+    id="navbar"
     class="w-1/6 h-screen backdrop-blur-md bg-white/40 rounded-r-xl flex flex-col justify-between p-3"
   >
     <ul class="flex flex-col">
@@ -61,6 +62,7 @@
 </template>
 <script setup lang="ts">
 import GithubIcon from "./icons/GithubIcon.vue";
+
 const GITHUB_LINK = "https://github.com/Sanfee18/Draft-AI";
 // const LINKEDIN_CONTRIBUTORS = [
 //   "https://www.linkedin.com/in/david-sanfelix",

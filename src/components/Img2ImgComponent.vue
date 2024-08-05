@@ -1,8 +1,8 @@
 <template>
-  <div class="flex items-center justify-center">
+  <div class="flex items-center justify-center my-4 mx-6">
     <div class="flex flex-row gap-6">
       <canvas
-        class="rounded-lg shadow-md border cursor-custom"
+        class="rounded-lg shadow-md border cursor-crosshair"
         ref="canvas"
         @mousedown="startDrawing"
         @mouseup="stopDrawing"
@@ -16,6 +16,7 @@
           @toggleUndo="toggleUndo"
           @toggleRedo="toggleRedo"
           @toggleEraseAll="toggleEraseAll"
+          º
         />
         <Img2ImgForm class="row-span-3" @generateImg="generateImg" />
       </div>
@@ -182,6 +183,8 @@ const saveState = () => {
 const toggleEraseAll = () => {
   if (state.ctx && canvas.value) {
     state.ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
+    state.ctx.fillStyle = "white"; // Fondo blanco
+    state.ctx.fillRect(0, 0, WIDTH, HEIGHT);
     saveState();
   }
 };
